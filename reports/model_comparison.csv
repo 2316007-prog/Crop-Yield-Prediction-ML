@@ -1,0 +1,3 @@
+Model,CV_R2_Mean,CV_R2_Std,MAE,RMSE,R2
+Linear Regression,0.557,0.0857,2.8096,6.3387,0.7171
+Random Forest Regressor,0.732,0.1072,1.0116,3.5634,0.9106

@@ -1,0 +1,19 @@
+{
+    "evaluation_partition": "Held-out test set (20%)",
+    "sample_size": 3883,
+    "target_variable": "Yield (Metric Tonnes / Hectare)",
+    "metrics": {
+        "Linear Regression": {
+            "MAE": 2.809599953810111,
+            "RMSE": 6.33869286152011,
+            "R2": 0.717082507456783
+        },
+        "Random Forest Regressor": {
+            "MAE": 1.0116026111407728,
+            "RMSE": 3.5634261602167534,
+            "R2": 0.910587979136551
+        }
+    },
+    "selected_best_model": "Random Forest Regressor",
+    "selection_rationale": "Random Forest achieved substantially lower MAE (1.01 MT/ha vs 2.81 MT/ha) and higher explanatory variance (R\u00b2: 0.9106 vs 0.7171) on unseen test data."
+}

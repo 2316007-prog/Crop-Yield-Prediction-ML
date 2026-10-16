@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}About - Methodology & Documentation{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="header-breadcrumbs">Home / Project Methodology & Documentation</div>
+        <h1 class="page-title">About Crop Yield Prediction: Project Methodology</h1>
+        <p class="page-subtitle">
+            An engineering capstone project developing a supervised machine learning decision support system 
+            for agricultural yield estimation across diverse agro-climatic zones in India.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Project Objectives -->
+        <div class="content-block-card">
+            <div class="content-card-header">
+                <h2>1. Project Objectives & Problem Formulation</h2>
+            </div>
+            <div class="content-card-body">
+                <p>
+                    Agricultural crop yield is influenced by a complex interplay of biophysical, climatic, and management factors.
+                    Accurate pre-harvest yield forecasting empowers farmers, agricultural credit institutions, insurers, and policymakers 
+                    to mitigate food security risks, optimize market supply chains, and make data-driven crop management decisions.
+                </p>
+                <div class="objectives-list">
+                    <div class="obj-item">
+                        <span class="obj-num">1</span>
+                        <div>
+                            <strong>Supervised Yield Modeling:</strong> Formulate agricultural yield estimation as a supervised multi-variate regression 
+                            problem predicting yield in <strong>Metric Tonnes per Hectare (MT/ha)</strong>.
+                        </div>
+                    </div>
+                    <div class="obj-item">
+                        <span class="obj-num">2</span>
+                        <div>
+                            <strong>Dual Algorithm Benchmarking:</strong> Implement and compare a parametric baseline (<em>Linear Regression</em>) 
+                            against an ensemble non-linear model (<em>Random Forest Regressor</em>).
+                        </div>
+                    </div>
+                    <div class="obj-item">
+                        <span class="obj-num">3</span>
+                        <div>
+                            <strong>Scientific Integrity & Leakage Prevention:</strong> Eliminate target leakage by strictly excluding harvest 
+                            production volume from predictor features, and adhere to a strict zero-synthetic-fabrication data policy.
+                        </div>
+                    </div>
+                    <div class="obj-item">
+                        <span class="obj-num">4</span>
+                        <div>
+                            <strong>Modular Data Integration:</strong> Architect an automated pipeline to ingest raw census files 
+                            (<code>data/raw/crop_production.csv</code>), climate observations (<code>weather.csv</code>), and pedological classifications (<code>soil.csv</code>).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Sources & Provenance -->
+        <div class="content-block-card">
+            <div class="content-card-header">
+                <h2>2. Genuine Data Provenance & Source Attribution</h2>
+            </div>
+            <div class="content-card-body">
+                <p>All training, validation, and testing records are derived exclusively from verified real-world public repositories:</p>
+                <div class="sources-grid">
+                    <div class="source-card">
+                        <span class="source-tag">Agricultural Census</span>
+                        <h4>Ministry of Agriculture & Farmers Welfare (MoA&FW)</h4>
+                        <p>
+                            District-wise historical crop statistics (Area, Production, Season, State) collected under the Directorate of 
+                            Economics and Statistics (DES), Government of India (1997–2022).
+                        </p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-tag">Meteorological Archive</span>
+                        <h4>India Meteorological Department (IMD)</h4>
+                        <p>
+                            Subdivision-level historical precipitation data (1901–2015) and gridded weather observation archives 
+                            documenting monsoon intensity and seasonal departures.
+                        </p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-tag">Climate API</span>
+                        <h4>NASA POWER Project (Agroclimatology)</h4>
+                        <p>
+                            NASA Prediction of Worldwide Energy Resources (POWER) API providing verified solar radiation, 2-meter air temperature, 
+                            and daily precipitation measurements for agricultural research.
+                        </p>
+                    </div>
+                    <div class="source-card">
+                        <span class="source-tag">Soil Classification</span>
+                        <h4>ICAR - NBSS&LUP Reference Standards</h4>
+                        <p>
+                            Pedological standards from the National Bureau of Soil Survey and Land Use Planning identifying major Indian soil orders 
+                            (Alluvial, Black/Regur, Red, Laterite, Arid).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Formulations -->
+        <div class="content-block-card">
+            <div class="content-card-header">
+                <h2>3. Mathematical Formulations & Evaluation Metrics</h2>
+            </div>
+            <div class="content-card-body">
+                <div class="math-grid">
+                    <div class="math-card">
+                        <h4>Yield Target Formulation</h4>
+                        <div class="math-box">
+                            $$\text{Yield} = \frac{\text{Harvested Production (Metric Tonnes)}}{\text{Cultivated Farmland Area (Hectares)}} \quad [\text{MT/ha}]$$
+                        </div>
+                        <p>Computed strictly when units are compatible, area is strictly positive ($> 0$), and biological plausibility holds.</p>
+                    </div>
+
+                    <div class="math-card">
+                        <h4>Mean Absolute Error (MAE)</h4>
+                        <div class="math-box">
+                            $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$
+                        </div>
+                        <p>Linear loss quantifying average deviation in original metric units (Tonnes/ha).</p>
+                    </div>
+
+                    <div class="math-card">
+                        <h4>Root Mean Squared Error (RMSE)</h4>
+                        <div class="math-box">
+                            $$\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+                        </div>
+                        <p>Heavily penalizes substantial prediction errors due to quadratic penalty weighting.</p>
+                    </div>
+
+                    <div class="math-card">
+                        <h4>Coefficient of Determination ($R^2$)</h4>
+                        <div class="math-box">
+                            $$R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}$$
+                        </div>
+                        <p>Represents the percentage of total yield variation explained by agricultural model inputs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Integration Pipeline & Missing Features Specification -->
+        <div class="content-block-card">
+            <div class="content-card-header">
+                <h2>4. Data Integration Pipeline & Missing Feature Handling</h2>
+            </div>
+            <div class="content-card-body">
+                <p>
+                    Government crop census datasets natively track <em>State, District, Crop, Season, Area, and Production</em>, 
+                    but do not record localized soil orders or daily ambient temperature. 
+                    Our system implements a documented, extensible integration architecture:
+                </p>
+                <div class="pipeline-schema-box">
+                    <h4>Multi-Source Ingestion & Merge Schema</h4>
+                    <ul>
+                        <li><strong>Agricultural Base (<code>data/raw/crop_production.csv</code>)</strong>: Ingested as primary table; columns normalized via <code>COLUMN_MAPPINGS</code>.</li>
+                        <li><strong>Weather Integration (<code>data/raw/weather.csv</code>)</strong>: Merged on matching keys <code>[State, District, Crop_Year, Season]</code> using left join without Cartesian product.</li>
+                        <li><strong>Soil Integration (<code>data/raw/soil.csv</code>)</strong>: Merged on geographic keys <code>[State, District]</code> using deduplicated primary soil types.</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box alert-info">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-content">
+                        <strong>Feature Transparency:</strong> The trained model in <code>models/best_crop_yield_model.pkl</code> 
+                        operates on verified predictors (<em>Crop, Area, Annual Rainfall, Fertilizer, Cropping Season, State</em>). 
+                        The web prediction form seamlessly accepts all six parameters, with Soil Type and Temperature serving as 
+                        user-selectable factors that automatically integrate into model retraining as soon as custom <code>weather.csv</code> 
+                        and <code>soil.csv</code> datasets are placed in <code>data/raw/</code>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Limitations & Future Work -->
+        <div class="content-block-card">
+            <div class="content-card-header">
+                <h2>5. Project Limitations & Future Engineering Enhancements</h2>
+            </div>
+            <div class="content-card-body">
+                <ul class="styled-list">
+                    <li>
+                        <strong>Micro-Climatic Variations:</strong> Annual rainfall totals do not capture intra-seasonal dry spells 
+                        or terminal heat stress during grain filling stages. Future iterations can incorporate 10-day dekad precipitation.
+                    </li>
+                    <li>
+                        <strong>Satellite Remote Sensing:</strong> Future versions can integrate ESA Sentinel-2 multispectral NDVI 
+                        and NASA SMAP root-zone soil moisture for real-time vegetative growth monitoring.
+                    </li>
+                    <li>
+                        <strong>Pest & Disease Outbreaks:</strong> Unforeseen biological pressures (e.g. locust infestations, stem borer) 
+                        remain exogenous shocks not captured by regional census averages.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

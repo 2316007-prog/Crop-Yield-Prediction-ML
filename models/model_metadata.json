@@ -1,0 +1,52 @@
+{
+    "best_model_name": "Random Forest Regressor",
+    "target_variable": "Yield",
+    "target_unit": "Metric Tonnes / Hectare (MT/ha)",
+    "feature_columns": [
+        "Crop",
+        "Season",
+        "State",
+        "Area",
+        "Annual_Rainfall",
+        "Fertilizer",
+        "Pesticide",
+        "Crop_Year"
+    ],
+    "categorical_features": [
+        "Crop",
+        "Season",
+        "State"
+    ],
+    "numerical_features": [
+        "Area",
+        "Annual_Rainfall",
+        "Fertilizer",
+        "Pesticide",
+        "Crop_Year"
+    ],
+    "missing_features_in_data": [
+        "Soil_Type (requires data/raw/soil.csv)",
+        "Temperature (requires data/raw/weather.csv)"
+    ],
+    "training_samples": 15528,
+    "test_samples": 3883,
+    "models_benchmarked": [
+        {
+            "Model": "Linear Regression",
+            "CV_R2_Mean": 0.557,
+            "CV_R2_Std": 0.0857,
+            "MAE": 2.8096,
+            "RMSE": 6.3387,
+            "R2": 0.7171
+        },
+        {
+            "Model": "Random Forest Regressor",
+            "CV_R2_Mean": 0.732,
+            "CV_R2_Std": 0.1072,
+            "MAE": 1.0116,
+            "RMSE": 3.5634,
+            "R2": 0.9106
+        }
+    ],
+    "random_state": 42
+}
